@@ -7,6 +7,7 @@ buildscript {
         retrofit_version = '2.2.0'
         room_version = '2.0.0'
         lifecycle_version = '2.0.0'
+        dagger_version = '2.10'
     }
     repositories {
         google()
