@@ -3,6 +3,7 @@ package com.pan.abigprogram
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_scrolling.*
 
 class ScrollingActivity : AppCompatActivity() {
 
