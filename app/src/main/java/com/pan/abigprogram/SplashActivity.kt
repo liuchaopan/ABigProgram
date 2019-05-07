@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -14,6 +15,8 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener {
     private var mDetector: GestureDetector? = null //手势检测
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.attributes.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
         setContentView(R.layout.activity_splash)
         mDetector = GestureDetector(this, SimpleGestureListener())
         flipper.setOnTouchListener(this)
