@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
-class SplashActivity : AppCompatActivity(), View.OnTouchListener {
+class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickListener {
 
     private var mDetector: GestureDetector? = null //手势检测
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,12 +20,16 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener {
         setContentView(R.layout.activity_splash)
         mDetector = GestureDetector(this, SimpleGestureListener())
         flipper.setOnTouchListener(this)
+        cancel_action.setOnClickListener(this)
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         return mDetector?.onTouchEvent(event) ?: false
     }
 
+    override fun onClick(v: View?) {
+        finish()
+    }
 
     private inner class SimpleGestureListener : GestureDetector.SimpleOnGestureListener() {
         internal val FLING_MIN_DISTANCE = 100
@@ -33,7 +37,8 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener {
 
         //不知道为什么，不加上onDown函数的话，onFling就不会响应，真是奇怪
         override fun onDown(e: MotionEvent): Boolean {
-            // TODO Auto-generated method stub
+            cancel_action.visibility = View.VISIBLE
+            cancel_action.postDelayed({ cancel_action.visibility = View.GONE }, 1000)
             Snackbar.make(flipper, "ondown", Snackbar.LENGTH_SHORT).show()
             return true
         }

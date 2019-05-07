@@ -40,4 +40,14 @@
             android:scaleType="fitXY"
             android:src="@drawable/splash_image_4" />
     </ViewFlipper>
+
+    <TextView
+        android:id="@+id/cancel_action"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/icon_cancel"
+        android:visibility="gone" />
 </RelativeLayout>
