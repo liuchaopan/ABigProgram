@@ -1,5 +1,6 @@
 package com.pan.abigprogram
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.pan.abigprogram.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -28,6 +30,7 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickLi
     }
 
     override fun onClick(v: View?) {
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 
