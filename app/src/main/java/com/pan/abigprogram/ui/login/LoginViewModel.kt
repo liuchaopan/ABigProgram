@@ -1,13 +1,12 @@
 package com.pan.abigprogram.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
+import com.pan.abigprogram.R
 import com.pan.abigprogram.data.LoginRepository
 import com.pan.abigprogram.data.Result
-
-import com.pan.abigprogram.R
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -49,6 +48,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5;
+        return password.length > 5
     }
 }

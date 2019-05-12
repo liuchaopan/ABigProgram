@@ -40,12 +40,9 @@
             android:label="@string/title_activity_music_tab"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
