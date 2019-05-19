@@ -1,6 +1,10 @@
 package com.pan.abigprogram.data
 
-import com.pan.abigprogram.data.model.LoggedInUser
+import arrow.core.Either
+import com.pan.abigprogram.entity.UserInfo
+import com.pan.abigprogram.http.Errors
+import com.pan.abigprogram.manager.UserManager
+import io.reactivex.Flowable
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -9,38 +13,29 @@ import com.pan.abigprogram.data.model.LoggedInUser
 
 class LoginRepository(val dataSource: LoginDataSource) {
 
-    // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
-        private set
-
-    val isLoggedIn: Boolean
-        get() = user != null
-
-    init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
-        user = null
-    }
-
     fun logout() {
-        user = null
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.login(username, password)
-
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
-        }
-
-        return result
+    fun login(username: String, password: String): Flowable<Either<Errors, UserInfo>> {
+        // 保存用户登录信息
+        return dataSource.savePrefsUser(username, password)
+                .andThen(dataSource.login())
+                .doOnNext { either ->
+                    either.fold({
+                        // 如果登录失败，清除登录信息
+                        dataSource.clearPrefsUser()
+                        Unit
+                    }, {
+                        UserManager.INSTANCE = it
+                    })
+                }
+                // 如果登录失败，清除登录信息
+                .doOnError { dataSource.clearPrefsUser() }
     }
 
-    private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
+    fun fetchAutoLogin(): Flowable<AutoLoginEvent> {
+        return dataSource.fetchAutoLogin()
     }
+
 }

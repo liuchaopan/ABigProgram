@@ -3,27 +3,114 @@ package com.pan.abigprogram.ui.login
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import arrow.core.Option
+import arrow.core.none
+import arrow.core.some
 import com.pan.abigprogram.R
+import com.pan.abigprogram.data.AutoLoginEvent
 import com.pan.abigprogram.data.LoginRepository
 import com.pan.abigprogram.data.Result
+import com.pan.abigprogram.entity.UserInfo
+import com.pan.abigprogram.ext.arrow.whenNotNull
+import com.pan.abigprogram.ext.livedata.toReactiveStream
+import com.pan.abigprogram.http.Errors
+import com.pan.abigprogram.http.service.globalHandleError
+import com.pan.abigprogram.utils.toast
+import com.pan.library.viewmodel.AutoDisposeViewModel
+import com.uber.autodispose.autoDisposable
+import io.reactivex.Single
+import retrofit2.HttpException
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val loginRepository: LoginRepository) : AutoDisposeViewModel() {
 
+    private val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
+    val loginIndicatorVisible: MutableLiveData<Boolean> = MutableLiveData()
+    val userInfo: MutableLiveData<UserInfo> = MutableLiveData()
+    val autoLogin: MutableLiveData<AutoLoginEvent> = MutableLiveData()
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
+    init {
+        autoLogin.toReactiveStream()
+                .filter { it.autoLogin }
+                .doOnNext { login(it.username, it.password) }
+                .autoDisposable(this)
+                .subscribe()
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        error.toReactiveStream()
+                .map { errorOpt ->
+                    errorOpt.flatMap {
+                        when (it) {
+                            is Errors.EmptyInputError -> "username or password can't be null.".some()
+                            is HttpException ->
+                                when (it.code()) {
+                                    401 -> "username or password failure.".some()
+                                    else -> "network failure".some()
+                                }
+                            else -> none()
+                        }
+                    }
+                }
+                .autoDisposable(this)
+                .subscribe { errorMsg ->
+                    errorMsg.whenNotNull {
+                        toast { it }
+                    }
+                }
 
-        if (result is Result.Success) {
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
+        initAutoLogin()
+                .autoDisposable(this)
+                .subscribe()
+    }
+
+    private fun initAutoLogin(): Single<AutoLoginEvent> {
+        return loginRepository.fetchAutoLogin()
+                .singleOrError()
+                .onErrorReturn { AutoLoginEvent(false, "", "") }
+                .doOnSuccess { event ->
+                    applyState(autoLogin = event, loginIndicator = false)
+                }
+    }
+
+    fun login(username: String?, password: String?) {
+        when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
+            true -> applyState(error = Errors.EmptyInputError.some())
+            false -> loginRepository
+                    .login(username, password)
+                    .compose(globalHandleError())
+                    .map { either ->
+                        either.fold({
+                            Result.failure<UserInfo>(it)
+                        }, {
+                            Result.success(it)
+                        })
+                    }
+                    .startWith(Result.loading())
+                    .startWith(Result.idle())
+                    .onErrorReturn { Result.failure(it) }
+                    .autoDisposable(this)
+                    .subscribe { state ->
+                        when (state) {
+                            is Result.Loading -> applyState(loginIndicator = true)
+                            is Result.Idle -> applyState(loginIndicator = false)
+                            is Result.Failure -> applyState(error = state.error.some(), loginIndicator = false)
+                            is Result.Success -> applyState(user = state.data.some(), loginIndicator = false)
+                        }
+                    }
+        }
+    }
+
+    private fun applyState(user: Option<UserInfo> = none(),
+                           error: Option<Throwable> = none(),
+                           loginIndicator: Boolean? = null,
+                           autoLogin: AutoLoginEvent? = null) {
+        this.error.postValue(error)
+        this.userInfo.postValue(user.orNull())
+
+        loginIndicator?.apply(loginIndicatorVisible::postValue)
+
+        autoLogin?.let {
+            this.autoLogin.postValue(autoLogin)
         }
     }
 

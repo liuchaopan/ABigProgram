@@ -1,41 +1,102 @@
 package com.pan.abigprogram.ui.login
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.pan.abigprogram.MainActivity
 import com.pan.abigprogram.R
+import com.pan.abigprogram.di.loginKodeinModule
+import com.pan.abigprogram.ext.clicksThrottleFirst
+import com.pan.abigprogram.ext.livedata.map
+import com.pan.abigprogram.ext.livedata.toReactiveStream
+import com.pan.library.view.activity.BaseActivity
+import com.uber.autodispose.autoDisposable
+import kotlinx.android.synthetic.main.activity_login.*
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 
-class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+class LoginActivity : BaseActivity() {
+
+    override val kodein: Kodein = Kodein.lazy {
+        extend(parentKodein)
+        import(loginKodeinModule)
+    }
+
+    private val mViewModel: LoginViewModel by instance()
+
+    override val layoutId: Int
+        get() = R.layout.activity_login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binds()
+        observeInputEvent()
+    }
 
-        setContentView(R.layout.activity_login)
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
+    private fun updateUiWithUser(displayName: String) {
+        val welcome = getString(R.string.welcome)
+        // TODO : initiate successful logged in experience
+        Toast.makeText(
+                applicationContext,
+                "$welcome $displayName",
+                Toast.LENGTH_LONG
+        ).show()
+    }
 
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
-                .get(LoginViewModel::class.java)
+    private fun binds() {
+        mViewModel.loginIndicatorVisible
+                .map { if (it) View.VISIBLE else View.GONE }
+                .toReactiveStream()
+                .autoDisposable(scopeProvider)
+                .subscribe { loading.visibility = it }
+        mViewModel.userInfo
+                .toReactiveStream()
+                .autoDisposable(scopeProvider)
+                .subscribe {
+                    updateUiWithUser(it.name)
+                    MainActivity.launch(this)
+                }
+        mViewModel.autoLogin
+                .toReactiveStream()
+                .autoDisposable(scopeProvider)
+                .subscribe {
+                    username.setText(it.username, TextView.BufferType.EDITABLE)
+                    password.setText(it.password, TextView.BufferType.EDITABLE)
+                }
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        login.clicksThrottleFirst()
+                .autoDisposable(scopeProvider)
+                .subscribe {
+                    loading.visibility = View.VISIBLE
+                    mViewModel.login(username.text.toString(), password.text.toString())
+                }
+    }
+
+    /**
+     * Extension function to simplify setting an afterTextChanged action to EditText components.
+     */
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun observeInputEvent() {
+        mViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -49,24 +110,8 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-            startActivity(Intent(this, MainActivity::class.java))
-            //Complete and destroy login activity once successful
-            finish()
-        })
-
         username.afterTextChanged {
-            loginViewModel.loginDataChanged(
+            mViewModel.loginDataChanged(
                     username.text.toString(),
                     password.text.toString()
             )
@@ -74,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
 
         password.apply {
             afterTextChanged {
-                loginViewModel.loginDataChanged(
+                mViewModel.loginDataChanged(
                         username.text.toString(),
                         password.text.toString()
                 )
@@ -83,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
+                        mViewModel.login(
                                 username.text.toString(),
                                 password.text.toString()
                         )
@@ -91,40 +136,6 @@ class LoginActivity : AppCompatActivity() {
                 false
             }
 
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
-            }
         }
     }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-                applicationContext,
-                "$welcome $displayName",
-                Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-}
-
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
 }

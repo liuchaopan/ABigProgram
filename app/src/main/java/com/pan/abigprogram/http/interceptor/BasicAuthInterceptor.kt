@@ -13,7 +13,7 @@ class BasicAuthInterceptor(
         var request = chain.request()
         val accessToken = getAuthorization()
 
-        if (!accessToken.isEmpty()) {
+        if (accessToken.isNotEmpty()) {
             val url = request.url().toString()
             request = request.newBuilder()
                     .addHeader("Authorization", accessToken)
