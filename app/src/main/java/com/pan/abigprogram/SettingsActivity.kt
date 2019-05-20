@@ -1,14 +1,28 @@
 package com.pan.abigprogram
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.pan.abigprogram.data.LoginRepository
+import com.pan.abigprogram.di.loginKodeinModule
+import com.pan.abigprogram.ui.login.LoginActivity
+import com.pan.library.view.activity.InjectionActivity
+import kotlinx.android.synthetic.main.settings_activity.*
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
-class SettingsActivity : AppCompatActivity(),
+class SettingsActivity : InjectionActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+
+    override val kodein: Kodein = Kodein.lazy {
+        extend(parentKodein)
+        import(loginKodeinModule)
+    }
+
+    private val repo: LoginRepository by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +41,16 @@ class SettingsActivity : AppCompatActivity(),
             }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        initListeners()
+    }
+
+    private fun initListeners() {
+        exit_button.setOnClickListener {
+            repo.logout()
+            finish()
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
