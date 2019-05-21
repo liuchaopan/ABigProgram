@@ -32,7 +32,7 @@ class LoginDataSource(private val userRepository: UserInfoRepository
     }
 
     fun logout() {
-        clearPrefsUser()
+        clearPrefsUser().subscribe()
     }
 
     fun savePrefsUser(username: String, password: String): Completable {
