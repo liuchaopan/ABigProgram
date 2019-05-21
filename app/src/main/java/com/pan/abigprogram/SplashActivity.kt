@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.pan.abigprogram.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_splash.*
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickListener {
@@ -23,6 +24,11 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickLi
         mDetector = GestureDetector(this, SimpleGestureListener())
         flipper.setOnTouchListener(this)
         cancel_action.setOnClickListener(this)
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                login()
+            }
+        }, 12000)
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -30,6 +36,11 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickLi
     }
 
     override fun onClick(v: View?) {
+        login()
+    }
+
+    private fun login() {
+        flipper.stopFlipping()
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
