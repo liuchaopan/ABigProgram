@@ -1,12 +1,14 @@
 package com.pan.abigprogram.data
 
 import arrow.core.Either
+import com.pan.abigprogram.PanApplication
 import com.pan.abigprogram.entity.UserInfo
 import com.pan.abigprogram.http.Errors
 import com.pan.abigprogram.http.service.ServiceManager
 import com.pan.abigprogram.http.service.bean.LoginRequestModel
 import com.pan.abigprogram.repository.UserInfoRepository
 import com.pan.library.util.RxSchedulers
+import com.sina.weibo.sdk.auth.AccessTokenKeeper
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
@@ -33,6 +35,7 @@ class LoginDataSource(private val userRepository: UserInfoRepository
 
     fun logout() {
         clearPrefsUser().subscribe()
+        AccessTokenKeeper.clear(PanApplication.INSTANCE)
     }
 
     fun savePrefsUser(username: String, password: String): Completable {

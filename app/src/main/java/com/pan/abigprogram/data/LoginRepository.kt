@@ -11,7 +11,7 @@ import io.reactivex.Flowable
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository(private val dataSource: LoginDataSource) {
 
     fun logout() {
         dataSource.logout()

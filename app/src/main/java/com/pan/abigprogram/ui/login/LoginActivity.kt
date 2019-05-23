@@ -1,6 +1,7 @@
 package com.pan.abigprogram.ui.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,7 +20,9 @@ import com.pan.abigprogram.ext.clicksThrottleFirst
 import com.pan.abigprogram.ext.livedata.map
 import com.pan.abigprogram.ext.livedata.toReactiveStream
 import com.pan.library.view.activity.BaseActivity
+import com.sina.weibo.sdk.auth.AccessTokenKeeper
 import com.sina.weibo.sdk.auth.Oauth2AccessToken
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage
 import com.sina.weibo.sdk.auth.sso.SsoHandler
 import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.activity_login.*
@@ -37,9 +40,9 @@ class LoginActivity : BaseActivity() {
 
     private val mViewModel: LoginViewModel by instance()
     /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能   */
-    private var mAccessToken: Oauth2AccessToken? = null
+    private lateinit var mAccessToken: Oauth2AccessToken
     /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效  */
-    private var mSsoHandler: SsoHandler? = null
+    private val mSsoHandler: SsoHandler by instance()
 
     override val layoutId: Int
         get() = R.layout.activity_login
@@ -48,6 +51,18 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binds()
         observeInputEvent()
+    }
+
+    /**
+     * 当 SSO 授权 Activity 退出时，该函数被调用。
+     *
+     * @see {@link Activity.onActivityResult}
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // SSO 授权回调
+        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+        mSsoHandler.authorizeCallBack(requestCode, resultCode, data)
     }
 
 
@@ -91,6 +106,11 @@ class LoginActivity : BaseActivity() {
                         (this as InputMethodManager).toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
                     }
                 }
+        sina_login.clicksThrottleFirst()
+                .autoDisposable(scopeProvider)
+                .subscribe {
+                    mSsoHandler.authorize(SelfWbAuthListener())
+                }
     }
 
     /**
@@ -106,6 +126,28 @@ class LoginActivity : BaseActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    private inner class SelfWbAuthListener : com.sina.weibo.sdk.auth.WbAuthListener {
+        override fun onSuccess(token: Oauth2AccessToken) {
+            this@LoginActivity.runOnUiThread(Runnable {
+                mAccessToken = token
+                if (mAccessToken.isSessionValid) {
+                    // 显示 Token
+                    updateUiWithUser(mAccessToken.phoneNum)
+                    // 保存 Token 到 SharedPreferences
+                    AccessTokenKeeper.writeAccessToken(this@LoginActivity, mAccessToken)
+                }
+            })
+        }
+
+        override fun cancel() {
+
+        }
+
+        override fun onFailure(errorMessage: WbConnectErrorMessage) {
+            Toast.makeText(this@LoginActivity, errorMessage.errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun observeInputEvent() {
