@@ -14,10 +14,13 @@ import androidx.lifecycle.Observer
 import com.pan.abigprogram.MainActivity
 import com.pan.abigprogram.R
 import com.pan.abigprogram.di.loginKodeinModule
+import com.pan.abigprogram.di.sinaKodeinModule
 import com.pan.abigprogram.ext.clicksThrottleFirst
 import com.pan.abigprogram.ext.livedata.map
 import com.pan.abigprogram.ext.livedata.toReactiveStream
 import com.pan.library.view.activity.BaseActivity
+import com.sina.weibo.sdk.auth.Oauth2AccessToken
+import com.sina.weibo.sdk.auth.sso.SsoHandler
 import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.Kodein
@@ -29,9 +32,14 @@ class LoginActivity : BaseActivity() {
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
         import(loginKodeinModule)
+        import(sinaKodeinModule)
     }
 
     private val mViewModel: LoginViewModel by instance()
+    /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能   */
+    private var mAccessToken: Oauth2AccessToken? = null
+    /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效  */
+    private var mSsoHandler: SsoHandler? = null
 
     override val layoutId: Int
         get() = R.layout.activity_login
