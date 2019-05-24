@@ -11,9 +11,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        ndk {
-            abiFilters  "armeabi"
-        }
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         buildConfigField "String", "CLIENT_ID", properties.getProperty("CLIENT_ID")
@@ -42,5 +39,7 @@ dependencies {
 }
 repositories {
     mavenCentral()
-    maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+    flatDir {
+        dirs '../library/libs'
+    }
 }

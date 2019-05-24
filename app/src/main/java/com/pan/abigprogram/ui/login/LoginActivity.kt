@@ -137,6 +137,7 @@ class LoginActivity : BaseActivity() {
                     updateUiWithUser(mAccessToken.phoneNum)
                     // 保存 Token 到 SharedPreferences
                     AccessTokenKeeper.writeAccessToken(this@LoginActivity, mAccessToken)
+                    MainActivity.launch(this@LoginActivity)
                 }
             })
         }

@@ -25,12 +25,14 @@ android {
 }
 
 repositories {
-    maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.sina.weibo.sdk:core:4.3.8:openDefaultRelease@aar'
+    api(name: 'openDefault-4.3.8', ext: 'aar')
     api 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
