@@ -33,7 +33,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    api project(':library')
+    implementation project(':library')
+    if (!isIndependentApk.toBoolean()) {
+        implementation project(':MusicPlayer')
+    }
+    api(name: 'openDefault-4.2.7', ext: 'aar')
     implementation "androidx.core:core-ktx:1.0.2"
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

@@ -2,6 +2,7 @@ package com.pan.abigprogram
 
 import android.app.Application
 import android.content.Context
+import com.alibaba.android.arouter.launcher.ARouter
 import com.pan.abigprogram.di.*
 import com.pan.library.handler.CrashHandler
 import com.sina.weibo.sdk.WbSdk
@@ -36,8 +37,12 @@ class PanApplication : Application() , KodeinAware {
         INSTANCE = this
         CrashHandler.instance.init()
         WbSdk.install(this, AuthInfo(this, APP_KEY, REDIRECT_URL, SCOPE))
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.printStackTrace()
+            ARouter.openDebug()
+        }
+        ARouter.init(this)
     }
-
-
 
 }

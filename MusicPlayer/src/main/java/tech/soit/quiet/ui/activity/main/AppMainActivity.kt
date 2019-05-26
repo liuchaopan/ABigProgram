@@ -5,7 +5,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayout
+import com.pan.library.Main
 import kotlinx.android.synthetic.main.activity_app_main.*
 import kotlinx.android.synthetic.main.main_content.*
 import tech.soit.quiet.R
@@ -18,12 +20,12 @@ import tech.soit.quiet.utils.component.support.attrValue
 /**
  * the main activity of application
  */
+@Route(path = Main.ACTIVITY_MUSIC)
 @LayoutId(R.layout.activity_app_main)
 class AppMainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //init drawer toggle
         val drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_navigation_drawer, R.string.close_navigation_drawer)

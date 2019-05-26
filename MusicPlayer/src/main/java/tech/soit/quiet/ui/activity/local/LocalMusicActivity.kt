@@ -42,11 +42,11 @@ class LocalMusicActivity : BaseActivity() {
 
     }
 
-    private inner class LocalPagerAdapter : FragmentPagerAdapter(supportFragmentManager) {
+    private inner class LocalPagerAdapter : FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         private val fragments = Array<Fragment?>(count) { null }
 
-        override fun getItem(position: Int): Fragment? = fragments[position]
+        override fun getItem(position: Int): Fragment = fragments[position]
                 ?: when (position) {
                     0 -> LocalSingleSongFragment()
                     1 -> LocalArtistFragment()

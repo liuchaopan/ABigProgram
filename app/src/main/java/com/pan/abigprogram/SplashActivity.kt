@@ -16,6 +16,7 @@ import java.util.*
 class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickListener {
 
     private var mDetector: GestureDetector? = null //手势检测
+    private var mTimer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -24,11 +25,18 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickLi
         mDetector = GestureDetector(this, SimpleGestureListener())
         flipper.setOnTouchListener(this)
         cancel_action.setOnClickListener(this)
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                login()
-            }
-        }, 12000)
+        mTimer = Timer().also {
+            it.schedule(object : TimerTask() {
+                override fun run() {
+                    login()
+                }
+            }, 12000)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mTimer?.cancel()
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
