@@ -1,9 +1,6 @@
 apply from: '../module_build_scripts.gradle'
 apply plugin: "androidx.navigation.safeargs"
 
-repositories {
-    maven { url "https://dl.bintray.com/summerly/maven" }
-}
 
 androidExtensions {
     experimental = true

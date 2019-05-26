@@ -35,7 +35,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation project(':library')
     if (!isIndependentApk.toBoolean()) {
-        implementation project(':MusicPlayer')
+        api project(':MusicPlayer')
     }
     api(name: 'openDefault-4.2.7', ext: 'aar')
     implementation "androidx.core:core-ktx:1.0.2"
