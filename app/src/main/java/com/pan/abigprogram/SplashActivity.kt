@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity(), View.OnTouchListener, View.OnClickLi
                 override fun run() {
                     login()
                 }
-            }, 12000)
+            }, 9000)
         }
     }
 
