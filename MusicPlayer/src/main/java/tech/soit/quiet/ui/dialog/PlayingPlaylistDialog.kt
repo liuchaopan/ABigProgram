@@ -138,8 +138,11 @@ class PlayingPlaylistDialog : BottomSheetDialogFragment(), CoroutineScope, Lifec
         }
     }
 
-    @TypeLayoutRes(R.layout.item_music_2)
     inner class Music2Binder : KItemViewBinder<Music>() {
+
+        override fun getLayoutRes(): Int {
+            return R.layout.item_music_2
+        }
 
         override fun onBindViewHolder(holder: KViewHolder, item: Music) {
             with(holder.itemView) {

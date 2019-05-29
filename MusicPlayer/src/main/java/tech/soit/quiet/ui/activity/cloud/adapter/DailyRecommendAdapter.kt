@@ -6,7 +6,6 @@ import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.ui.adapter.MusicListAdapter
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
-import tech.soit.quiet.utils.TypeLayoutRes
 import tech.soit.quiet.utils.withBinder
 import java.util.*
 
@@ -30,8 +29,11 @@ class DailyRecommendAdapter : MusicListAdapter(TOKEN) {
 
     object DailyRecommendHeader
 
-    @TypeLayoutRes(R.layout.item_header_daily_recommend)
     class DailyHeaderBinder : KItemViewBinder<DailyRecommendHeader>() {
+
+        override fun getLayoutRes(): Int {
+            return R.layout.item_header_daily_recommend
+        }
 
         override fun onBindViewHolder(holder: KViewHolder, item: DailyRecommendHeader) {
             holder.itemView.findViewById<TextView>(R.id.textDay).apply {

@@ -9,16 +9,17 @@ import tech.soit.quiet.R
 import tech.soit.quiet.repository.LatestPlayingRepository
 import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.adapter.LatestPlayListAdapter
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 import tech.soit.quiet.utils.annotation.EnableBottomController
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.support.dimen
 
-@LayoutId(R.layout.activity_latest_play_list)
+@DisableLayoutInject
 @EnableBottomController
 class LatestPlayListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_latest_play_list)
         layoutRoot.setOnApplyWindowInsetsListener { _, insets ->
             toolbar.updatePadding(top = toolbar.paddingTop + insets.systemWindowInsetTop)
             insets.consumeSystemWindowInsets()

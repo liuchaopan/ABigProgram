@@ -14,18 +14,19 @@ import tech.soit.quiet.R
 import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.fragment.home.MainCloudFragment
 import tech.soit.quiet.ui.fragment.home.MainMusicFragment
-import tech.soit.quiet.utils.annotation.LayoutId
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 import tech.soit.quiet.utils.component.support.attrValue
 
 /**
  * the main activity of application
  */
 @Route(path = Main.ACTIVITY_MUSIC)
-@LayoutId(R.layout.activity_app_main)
+@DisableLayoutInject
 class AppMainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_app_main)
         //init drawer toggle
         val drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_navigation_drawer, R.string.close_navigation_drawer)

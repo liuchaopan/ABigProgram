@@ -1,14 +1,17 @@
 package tech.soit.quiet.ui.item
 
+import android.view.ViewGroup
 import tech.soit.quiet.R
 import tech.soit.typed.adapter.TypedAdapter
 import tech.soit.typed.adapter.TypedBinder
 import tech.soit.typed.adapter.ViewHolder
-import tech.soit.typed.adapter.annotation.TypeLayoutResource
 
-@TypeLayoutResource(R.layout.item_empty)
 @Deprecated("")
 class EmptyViewBinder : TypedBinder<Empty>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+        return ViewHolder.from(R.layout.item_empty, parent)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, item: Empty) {
         //do nothing

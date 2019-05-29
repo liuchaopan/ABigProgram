@@ -14,7 +14,6 @@ import tech.soit.quiet.repository.netease.source.NeteaseGlideUrl
 import tech.soit.quiet.ui.activity.cloud.CloudPlayListDetailActivity
 import tech.soit.quiet.ui.adapter.viewholder.BaseViewHolder
 import tech.soit.quiet.ui.view.RoundRectOutlineProvider
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.ImageLoader
 import tech.soit.quiet.utils.component.support.px
 import tech.soit.quiet.utils.component.support.string
@@ -105,7 +104,6 @@ class TopDetailListAdapter(private val list: JsonArray) : RecyclerView.Adapter<B
     }
 
 
-    @LayoutId(R.layout.item_cloud_top_type_1)
     private class FullViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
         init {
@@ -132,7 +130,6 @@ class TopDetailListAdapter(private val list: JsonArray) : RecyclerView.Adapter<B
 
     }
 
-    @LayoutId(R.layout.item_cloud_top_type_2)
     private class SimpleViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
         init {
@@ -153,7 +150,6 @@ class TopDetailListAdapter(private val list: JsonArray) : RecyclerView.Adapter<B
 
     }
 
-    @LayoutId(R.layout.header_item_cloud_top)
     private class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
         fun update(title: String) = with(itemView) {

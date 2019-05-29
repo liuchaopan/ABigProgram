@@ -3,26 +3,22 @@ package tech.soit.quiet.utils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import me.drakeet.multitype.ItemViewBinder
 import me.drakeet.multitype.MultiTypeAdapter
 import tech.soit.quiet.R
-import tech.soit.quiet.utils.annotation.LayoutId
 
 
 open class KViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-@Deprecated("use LayoutId")
-annotation class TypeLayoutRes(@LayoutRes val value: Int)
+
 
 abstract class KItemViewBinder<T> : ItemViewBinder<T, KViewHolder>() {
 
-    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): KViewHolder {
-        val layoutRes = (this::class.annotations.firstOrNull { it is TypeLayoutRes } as TypeLayoutRes?)?.value
-                ?: this::class.java.getAnnotation(LayoutId::class.java)?.value
-                ?: throw IllegalStateException("must override this function if you do not use Annotation")
+    abstract fun getLayoutRes(): Int
 
+    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): KViewHolder {
+        val layoutRes = getLayoutRes()
         val view = inflater.inflate(layoutRes, parent, false)
         onViewCreated(view)
         return KViewHolder(view)
@@ -62,8 +58,12 @@ fun MultiTypeAdapter.submit(items: List<Any>) {
  * easy access for loading
  */
 
-@LayoutId(R.layout.item_loading)
 class LoadingViewBinder : KItemViewBinder<Loading>() {
+
+
+    override fun getLayoutRes(): Int {
+        return R.layout.item_loading
+    }
 
     override fun onBindViewHolder(holder: KViewHolder, item: Loading) {
         //do nothing
@@ -88,8 +88,12 @@ fun MultiTypeAdapter.setLoading() {
     items = listOf(Loading)
 }
 
-@LayoutId(R.layout.item_empty)
 class EmptyViewBinder : KItemViewBinder<Empty>() {
+
+    override fun getLayoutRes(): Int {
+        return R.layout.item_empty
+    }
+
     override fun onBindViewHolder(holder: KViewHolder, item: Empty) {
         //do nothing
     }

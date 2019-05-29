@@ -12,7 +12,7 @@ import tech.soit.quiet.R
 import tech.soit.quiet.repository.local.LocalMusicEngine
 import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.fragment.local.LocalMusicScannerSettingFragment
-import tech.soit.quiet.utils.annotation.LayoutId
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 import tech.soit.quiet.utils.component.log
 import tech.soit.quiet.utils.component.support.QuietViewModelProvider
 import tech.soit.quiet.utils.component.support.Status
@@ -20,7 +20,7 @@ import tech.soit.quiet.utils.component.support.string
 import tech.soit.quiet.utils.doWithPermissions
 import tech.soit.quiet.viewmodel.LocalScannerViewModel
 
-@LayoutId(R.layout.activity_local_scanner)
+@DisableLayoutInject
 class LocalScannerActivity : BaseActivity() {
 
     init {
@@ -38,7 +38,7 @@ class LocalScannerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_local_scanner)
         //init view
         buttonStart.setOnClickListener { _ ->
             doWithPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, onDenied = { _ ->

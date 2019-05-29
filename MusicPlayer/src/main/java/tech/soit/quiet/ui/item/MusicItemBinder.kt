@@ -14,7 +14,6 @@ import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.player.MusicPlayerManager
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.ImageLoader
 import tech.soit.quiet.utils.component.support.attrValue
 
@@ -26,7 +25,7 @@ import tech.soit.quiet.utils.component.support.attrValue
  * @param onClick callback of music been clicked
  * @param onPlayingItemShowHide callback of playing music item show/hide
  */
-@LayoutId(R.layout.item_music)
+
 open class MusicItemViewBinder(
         private val token: String,
         private val onClick: (view: View, music: Music) -> Unit,
@@ -38,6 +37,10 @@ open class MusicItemViewBinder(
 
     fun applyPrimaryColor(@ColorInt color: Int) {
         colorIndicator = color
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.layout.item_music
     }
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): KViewHolder {

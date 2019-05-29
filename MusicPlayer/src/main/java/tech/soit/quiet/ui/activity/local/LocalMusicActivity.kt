@@ -11,20 +11,21 @@ import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.fragment.local.LocalAlbumFragment
 import tech.soit.quiet.ui.fragment.local.LocalArtistFragment
 import tech.soit.quiet.ui.fragment.local.LocalSingleSongFragment
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 import tech.soit.quiet.utils.annotation.EnableBottomController
-import tech.soit.quiet.utils.annotation.LayoutId
 
 /**
  * local music main activity
  *
  * contain three fragment [LocalAlbumFragment] [LocalSingleSongFragment] [LocalArtistFragment]
  */
-@LayoutId(R.layout.activity_local_music)
+@DisableLayoutInject
 @EnableBottomController
 class LocalMusicActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_local_music)
         tabLayout.setupWithViewPager(viewPager)
         viewPager.adapter = LocalPagerAdapter()
 

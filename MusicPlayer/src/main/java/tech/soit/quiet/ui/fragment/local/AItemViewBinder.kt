@@ -6,16 +6,18 @@ import kotlinx.android.synthetic.main.item_common_a.view.*
 import tech.soit.quiet.R
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
-import tech.soit.quiet.utils.TypeLayoutRes
 import tech.soit.quiet.utils.component.ImageLoader
 import tech.soit.quiet.utils.component.support.attrValue
 
-@TypeLayoutRes(R.layout.item_common_a)
+
 class AItemViewBinder(
         private val onClick: ((position: Int) -> Unit)? = null,
         private val onLongClick: ((position: Int) -> Boolean)? = null
 ) : KItemViewBinder<AItem>() {
 
+    override fun getLayoutRes(): Int {
+        return R.layout.item_common_a
+    }
 
     override fun onBindViewHolder(holder: KViewHolder, item: AItem) = with(holder.itemView) {
         when {

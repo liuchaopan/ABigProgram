@@ -1,7 +1,9 @@
 package tech.soit.quiet.ui.fragment.home
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +15,8 @@ import tech.soit.quiet.repository.netease.NeteaseRepository
 import tech.soit.quiet.ui.adapter.CloudMainAdapter
 import tech.soit.quiet.ui.fragment.base.BaseFragment
 import tech.soit.quiet.utils.KItemViewBinder
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.log
 
-@LayoutId(R.layout.fragment_main_cloud)
 class MainCloudFragment : BaseFragment() {
 
 
@@ -29,6 +29,10 @@ class MainCloudFragment : BaseFragment() {
         MusicPlayerManager.playingMusic.observe(this, Observer { music ->
             adapter.onPlayingMusicChanged(music)
         })
+    }
+
+    override fun onCreateView2(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_main_cloud, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

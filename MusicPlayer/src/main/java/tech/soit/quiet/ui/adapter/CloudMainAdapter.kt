@@ -26,7 +26,6 @@ import tech.soit.quiet.ui.item.MusicItemViewBinder
 import tech.soit.quiet.ui.view.CircleOutlineProvider
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.log
 import tech.soit.quiet.utils.component.support.value
 import tech.soit.quiet.utils.withBinder
@@ -155,10 +154,13 @@ class CloudMainAdapter : MultiTypeAdapter() {
             @DrawableRes val icon: Int
     )
 
-    @LayoutId(R.layout.item_cloud_nav)
     private class ItemNavigatorBinder : KItemViewBinder<ItemNavigator>() {
 
         private val circleOutlineProvider = CircleOutlineProvider()
+
+        override fun getLayoutRes(): Int {
+            return R.layout.item_cloud_nav
+        }
 
         override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): KViewHolder {
             val holder = super.onCreateViewHolder(inflater, parent)
@@ -197,11 +199,14 @@ class CloudMainAdapter : MultiTypeAdapter() {
             @StringRes val title: Int
     )
 
-    @LayoutId(R.layout.header_item_cloud_main)
     private class ItemHeaderBinder : KItemViewBinder<ItemHeader>() {
 
         override val spanSize: Int
             get() = SPAN_COUNT
+
+        override fun getLayoutRes(): Int {
+            return R.layout.header_item_cloud_main
+        }
 
         override fun onBindViewHolder(holder: KViewHolder, item: ItemHeader) = holder.itemView.run {
             findViewById<TextView>(R.id.textTitle).setText(item.title)
@@ -222,6 +227,10 @@ class CloudMainAdapter : MultiTypeAdapter() {
     }
 
     private class ItemPlaylistBinder : KItemViewBinder<ItemPlaylist>() {
+
+        override fun getLayoutRes(): Int {
+            return R.layout.item_cloud_nav_2
+        }
 
         override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): KViewHolder {
             return CloudMainNav2ViewHolder(inflater.inflate(R.layout.item_cloud_nav_2, parent, false))

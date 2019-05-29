@@ -3,11 +3,8 @@ package tech.soit.quiet.ui.adapter.viewholder
 import android.view.View
 import androidx.core.view.isInvisible
 import kotlinx.android.synthetic.main.item_music_1.view.*
-import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
-import tech.soit.quiet.utils.annotation.LayoutId
 
-@LayoutId(R.layout.item_music_1)
 class MusicViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
 

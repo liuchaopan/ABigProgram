@@ -1,10 +1,10 @@
 package tech.soit.quiet.ui.item
 
+import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_setting_switch.view.*
 import tech.soit.quiet.R
 import tech.soit.typed.adapter.TypedBinder
 import tech.soit.typed.adapter.ViewHolder
-import tech.soit.typed.adapter.annotation.TypeLayoutResource
 
 data class SettingSwitch(
         val key: String,
@@ -14,8 +14,11 @@ data class SettingSwitch(
 )
 
 
-@TypeLayoutResource(R.layout.item_setting_switch)
 class SettingSwitchBinder : TypedBinder<SettingSwitch>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+        return ViewHolder.from(R.layout.item_setting_switch, parent)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, item: SettingSwitch) {
         holder.itemView.switch1.apply {

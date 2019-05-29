@@ -9,7 +9,6 @@ import tech.soit.quiet.ui.activity.cloud.CloudPlayListDetailActivity
 import tech.soit.quiet.ui.view.RoundRectOutlineProvider
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
-import tech.soit.quiet.utils.TypeLayoutRes
 import tech.soit.quiet.utils.component.ImageLoader
 import tech.soit.quiet.utils.component.support.px
 import tech.soit.quiet.utils.component.support.string
@@ -17,7 +16,6 @@ import tech.soit.quiet.utils.component.support.string
 /**
  * cloud fragment 主页面的歌单列表 item
  */
-@TypeLayoutRes(R.layout.item_play_list)
 class PlayListViewBinder : KItemViewBinder<PlayListDetail>() {
 
     private val outlineProvider = RoundRectOutlineProvider(3.px.toFloat())
@@ -27,6 +25,10 @@ class PlayListViewBinder : KItemViewBinder<PlayListDetail>() {
             outlineProvider = this@PlayListViewBinder.outlineProvider
             clipToOutline = true
         }
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.layout.item_play_list
     }
 
     override fun onBindViewHolder(holder: KViewHolder, item: PlayListDetail) {

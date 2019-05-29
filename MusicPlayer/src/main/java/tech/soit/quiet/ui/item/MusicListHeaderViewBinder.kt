@@ -5,7 +5,6 @@ import kotlinx.android.synthetic.main.header_music_list.view.*
 import tech.soit.quiet.R
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
-import tech.soit.quiet.utils.TypeLayoutRes
 import tech.soit.quiet.utils.component.support.setOnClickListenerAsync
 import tech.soit.quiet.utils.component.support.string
 
@@ -16,11 +15,14 @@ class ItemMusicListHeader(
 )
 
 
-@TypeLayoutRes(R.layout.header_music_list)
 class MusicListHeaderViewBinder(
         private val onClicked: () -> Unit,
         private val onCollectionClicked: (suspend () -> Unit)? = null
 ) : KItemViewBinder<ItemMusicListHeader>() {
+
+    override fun getLayoutRes(): Int {
+        return R.layout.header_music_list
+    }
 
     override fun onBindViewHolder(holder: KViewHolder, item: ItemMusicListHeader) {
         with(holder.itemView) {

@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.content_main_music_user_info.*
@@ -22,7 +24,6 @@ import tech.soit.quiet.ui.fragment.base.BaseFragment
 import tech.soit.quiet.ui.fragment.home.cloud.PlayListViewBinder
 import tech.soit.quiet.ui.fragment.home.viewmodel.MainMusicViewModel
 import tech.soit.quiet.ui.view.CircleOutlineProvider
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.ImageLoader
 import tech.soit.quiet.utils.component.log
 import tech.soit.quiet.utils.component.support.color
@@ -35,7 +36,6 @@ import tech.soit.quiet.utils.withLoadingBinder
 /**
  * main Fragment of music
  */
-@LayoutId(R.layout.fragment_main_music)
 class MainMusicFragment : BaseFragment() {
 
     companion object {
@@ -56,6 +56,10 @@ class MainMusicFragment : BaseFragment() {
     private var positionCollectionStart = 0
 
     private var isLogin = false
+
+    override fun onCreateView2(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_main_music, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

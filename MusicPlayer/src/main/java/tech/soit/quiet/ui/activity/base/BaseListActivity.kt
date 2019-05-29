@@ -5,19 +5,19 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.activity_base_list.*
 import tech.soit.quiet.R
-import tech.soit.quiet.utils.annotation.LayoutId
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 
 
 /**
  * the base activity which holder a recycler view
  *
  */
-@LayoutId(R.layout.activity_base_list)
+@DisableLayoutInject
 abstract class BaseListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_base_list)
         //toolbar setup
         layoutRoot.setOnApplyWindowInsetsListener { _, insets ->
             toolbar.updatePadding(top = toolbar.paddingTop + insets.systemWindowInsetTop)

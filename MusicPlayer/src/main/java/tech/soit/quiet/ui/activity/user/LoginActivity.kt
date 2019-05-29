@@ -10,14 +10,14 @@ import tech.soit.quiet.R
 import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.activity.main.AppMainActivity
 import tech.soit.quiet.ui.activity.user.viewmodel.LoginViewModel
-import tech.soit.quiet.utils.annotation.LayoutId
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 import tech.soit.quiet.utils.component.support.QuietViewModelProvider
 import tech.soit.quiet.utils.component.support.setOnClickListenerAsync
 
 /**
  * 暂时先这样吧，登陆界面能跑就行了
  */
-@LayoutId(R.layout.activity_login)
+@DisableLayoutInject
 class LoginActivity : BaseActivity() {
 
     init {
@@ -35,7 +35,7 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_login)
         buttonLogin.setOnClickListenerAsync {
             val phone = editPhone.text?.toString()
             val password = editPassword.text?.toString()

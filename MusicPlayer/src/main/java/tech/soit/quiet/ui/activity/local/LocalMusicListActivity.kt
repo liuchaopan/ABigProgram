@@ -15,15 +15,15 @@ import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.activity.local.viewmodel.LocalMusicListViewModel
 import tech.soit.quiet.ui.item.MusicItemViewBinder
 import tech.soit.quiet.utils.*
+import tech.soit.quiet.utils.annotation.DisableLayoutInject
 import tech.soit.quiet.utils.annotation.EnableBottomController
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.log
 
 /**
  * an activity which display a music list for Local
  */
 @EnableBottomController
-@LayoutId(R.layout.activity_local_music_list)
+@DisableLayoutInject
 class LocalMusicListActivity : BaseActivity() {
 
     companion object {
@@ -54,7 +54,7 @@ class LocalMusicListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_local_music_list)
         //check arguments
         val type = intent.getIntExtra(ARG_TYPE, -1)
         if (type != TYPE_ALBUM && type != TYPE_ARTIST) {

@@ -1,19 +1,19 @@
 package tech.soit.quiet.ui.fragment.local
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_local_scanner_setting.*
 import tech.soit.quiet.R
 import tech.soit.quiet.ui.fragment.base.BaseFragment
 import tech.soit.quiet.ui.item.*
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.support.Status
 import tech.soit.quiet.viewmodel.LocalMusicScannerSettingViewModel
 import tech.soit.typed.adapter.TypedAdapter
 import tech.soit.typed.adapter.withBinder
 
-@LayoutId(R.layout.fragment_local_scanner_setting)
 class LocalMusicScannerSettingFragment : BaseFragment() {
 
     companion object {
@@ -63,6 +63,10 @@ class LocalMusicScannerSettingFragment : BaseFragment() {
             }
             adapter.notifyDataSetChanged()
         })
+    }
+
+    override fun onCreateView2(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_local_scanner_setting, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -19,14 +19,12 @@ import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.activity.cloud.viewmodel.CloudPlayListDetailViewModel
 import tech.soit.quiet.ui.adapter.MusicListAdapter2
 import tech.soit.quiet.utils.annotation.EnableBottomController
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.support.attrValue
 import tech.soit.quiet.utils.component.support.dimen
 import tech.soit.quiet.utils.component.support.string
 import tech.soit.quiet.utils.event.PrimaryColorEvent
 import tech.soit.quiet.utils.event.WindowInsetsEvent
 
-@LayoutId(R.layout.activity_cloud_play_list_detail)
 @EnableBottomController
 class CloudPlayListDetailActivity : BaseActivity() {
 
@@ -57,6 +55,7 @@ class CloudPlayListDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cloud_play_list_detail)
         EventBus.getDefault().register(this)
         layoutRoot.setOnApplyWindowInsetsListener { _, insets ->
             if (insets.systemWindowInsetTop != 0) {

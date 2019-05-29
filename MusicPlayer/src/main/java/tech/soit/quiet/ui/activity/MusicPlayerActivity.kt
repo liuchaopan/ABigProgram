@@ -13,7 +13,6 @@ import tech.soit.quiet.player.MusicPlayerManager
 import tech.soit.quiet.player.core.IMediaPlayer
 import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.view.CircleOutlineProvider
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.ColorMaskTransformation
 import tech.soit.quiet.utils.component.ImageLoader
 import tech.soit.quiet.utils.component.support.color
@@ -22,7 +21,6 @@ import tech.soit.quiet.utils.subTitle
 /**
  * activity show playing music
  */
-@LayoutId(R.layout.activity_music_player)
 class MusicPlayerActivity : BaseActivity() {
 
 
@@ -33,7 +31,7 @@ class MusicPlayerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_music_player)
         MusicPlayerManager.playerState.observe(this, Observer {
             if (it == IMediaPlayer.PLAYING) {
                 buttonPlayPause.setImageResource(R.drawable.ic_pause_black_24dp)

@@ -2,7 +2,9 @@ package tech.soit.quiet.ui.fragment.local
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -20,7 +22,6 @@ import tech.soit.quiet.repository.db.QuietDatabase
 import tech.soit.quiet.ui.fragment.base.BaseFragment
 import tech.soit.quiet.ui.item.MusicItemViewBinder
 import tech.soit.quiet.utils.*
-import tech.soit.quiet.utils.annotation.LayoutId
 import tech.soit.quiet.utils.component.LoggerLevel
 import tech.soit.quiet.utils.component.log
 import tech.soit.quiet.utils.component.support.CenterSmoothScroller
@@ -28,7 +29,6 @@ import tech.soit.quiet.utils.component.support.attrValue
 import tech.soit.quiet.viewmodel.LocalMusicViewModel
 import kotlin.math.abs
 
-@LayoutId(R.layout.fragment_local_single_song)
 class LocalSingleSongFragment : BaseFragment() {
 
     companion object {
@@ -67,6 +67,10 @@ class LocalSingleSongFragment : BaseFragment() {
      * animation to point out which item is playing
      */
     private var itemHintAnimator: ValueAnimator? = null
+
+    override fun onCreateView2(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_local_single_song, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

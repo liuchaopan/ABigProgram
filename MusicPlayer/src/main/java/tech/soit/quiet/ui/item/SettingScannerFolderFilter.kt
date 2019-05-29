@@ -1,10 +1,10 @@
 package tech.soit.quiet.ui.item
 
+import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_setting_folder_filter.view.*
 import tech.soit.quiet.R
 import tech.soit.typed.adapter.TypedBinder
 import tech.soit.typed.adapter.ViewHolder
-import tech.soit.typed.adapter.annotation.TypeLayoutResource
 import java.io.File
 
 /**
@@ -26,8 +26,11 @@ data class SettingScannerFolderFilter(
 /**
  * for [tech.soit.quiet.ui.fragment.local.LocalMusicScannerSettingFragment]
  */
-@TypeLayoutResource(R.layout.item_setting_folder_filter)
 class SettingScannerFolderFilterBinder : TypedBinder<SettingScannerFolderFilter>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+        return ViewHolder.from(R.layout.item_setting_folder_filter, parent)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, item: SettingScannerFolderFilter) = with(holder.itemView) {
         checkbox.isChecked = item.isChecked
