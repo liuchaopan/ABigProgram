@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.pan.library.util.AppContext
 import kotlinx.android.synthetic.main.fragment_local_single_song.*
 import me.drakeet.multitype.MultiTypeAdapter
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.player.MusicPlayerManager
@@ -137,7 +137,7 @@ class LocalSingleSongFragment : BaseFragment() {
     }
 
     init {
-        viewModelFactory = object : ViewModelProvider.AndroidViewModelFactory(AppContext) {
+        viewModelFactory = object : ViewModelProvider.AndroidViewModelFactory(AppContext.instance) {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 if (modelClass.isAssignableFrom(LocalMusicViewModel::class.java)) {
                     @Suppress("UNCHECKED_CAST")

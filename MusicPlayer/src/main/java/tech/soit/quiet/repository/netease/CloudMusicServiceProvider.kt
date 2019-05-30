@@ -1,10 +1,10 @@
 package tech.soit.quiet.repository.netease
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.pan.library.util.AppContext
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.utils.component.network.CookieStore
 import tech.soit.quiet.utils.component.network.PersistentCookieStore
 import tech.soit.quiet.utils.component.network.randomUserAgent
@@ -19,12 +19,12 @@ internal object CloudMusicServiceProvider {
 
     private const val URL_BASE = "http://music.163.com"
 
-    private val cache = File(AppContext.externalCacheDir, "netCache")
+    private val cache = File(AppContext.instance.externalCacheDir, "netCache")
 
     /**
      * @param cookieStore 保存和取得 cookie 的载体
      */
-    fun provideCloudMusicService(cookieStore: CookieStore? = PersistentCookieStore(AppContext)): CloudMusicService {
+    fun provideCloudMusicService(cookieStore: CookieStore? = PersistentCookieStore(AppContext.instance)): CloudMusicService {
         return Retrofit.Builder()
                 .baseUrl(URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -3,7 +3,7 @@ package tech.soit.quiet.utils.component.persistence
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 import java.lang.ref.WeakReference
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -20,10 +20,10 @@ object Preference {
     /**
      * default application preference
      */
-    private val default = PreferenceProperty<Any?>(PreferenceManager.getDefaultSharedPreferences(AppContext))
+    private val default = PreferenceProperty<Any?>(PreferenceManager.getDefaultSharedPreferences(AppContext.instance))
 
     /** player preference delegate */
-    private val player = PreferenceProperty<Any?>(AppContext.getSharedPreferences("player", Context.MODE_PRIVATE))
+    private val player = PreferenceProperty<Any?>(AppContext.instance.getSharedPreferences("player", Context.MODE_PRIVATE))
 
 
     /**

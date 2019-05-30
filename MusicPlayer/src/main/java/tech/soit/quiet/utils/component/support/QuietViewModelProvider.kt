@@ -2,12 +2,12 @@ package tech.soit.quiet.utils.component.support
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 import tech.soit.quiet.repository.db.QuietDatabase
 import tech.soit.quiet.repository.db.dao.LocalMusicDao
 import tech.soit.quiet.repository.netease.NeteaseRepository
 
-open class QuietViewModelProvider : ViewModelProvider.AndroidViewModelFactory(AppContext) {
+open class QuietViewModelProvider : ViewModelProvider.AndroidViewModelFactory(AppContext.instance) {
 
     protected val database get() = QuietDatabase.instance
 

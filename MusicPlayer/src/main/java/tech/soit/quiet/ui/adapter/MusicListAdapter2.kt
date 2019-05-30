@@ -8,10 +8,10 @@ import androidx.annotation.ColorInt
 import androidx.core.view.children
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
+import com.pan.library.util.AppContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.model.vo.PlayListDetail
@@ -49,7 +49,7 @@ open class MusicListAdapter2 : RecyclerView.Adapter<BaseViewHolder>() {
     protected var recyclerView: RecyclerView? = null
 
     @ColorInt
-    private var colorPrimary: Int = AppContext.attrValue(R.attr.colorPrimary)
+    private var colorPrimary: Int = AppContext.instance.attrValue(R.attr.colorPrimary)
 
     private var insetsTop: Int = -1
 

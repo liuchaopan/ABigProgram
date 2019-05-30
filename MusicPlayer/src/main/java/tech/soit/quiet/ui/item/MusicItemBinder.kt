@@ -7,8 +7,8 @@ import androidx.annotation.ColorInt
 import androidx.core.view.children
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
+import com.pan.library.util.AppContext
 import kotlinx.android.synthetic.main.item_music.view.*
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.player.MusicPlayerManager
@@ -33,7 +33,7 @@ open class MusicItemViewBinder(
 ) : KItemViewBinder<Music>() {
 
     @ColorInt
-    var colorIndicator: Int = AppContext.attrValue(R.attr.colorPrimary)
+    var colorIndicator: Int = AppContext.instance.attrValue(R.attr.colorPrimary)
 
     fun applyPrimaryColor(@ColorInt color: Int) {
         colorIndicator = color

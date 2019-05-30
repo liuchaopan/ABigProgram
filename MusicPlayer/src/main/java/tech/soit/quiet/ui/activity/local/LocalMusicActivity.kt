@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import com.pan.library.util.AppContext
 import kotlinx.android.synthetic.main.activity_local_music.*
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.R
 import tech.soit.quiet.ui.activity.base.BaseActivity
 import tech.soit.quiet.ui.fragment.local.LocalAlbumFragment
@@ -59,9 +59,9 @@ class LocalMusicActivity : BaseActivity() {
 
         override fun getPageTitle(position: Int): CharSequence? {
             return when (position) {
-                0 -> AppContext.getString(R.string.single_song)
-                1 -> AppContext.getString(R.string.artist)
-                2 -> AppContext.getString(R.string.album)
+                0 -> AppContext.instance.getString(R.string.single_song)
+                1 -> AppContext.instance.getString(R.string.artist)
+                2 -> AppContext.instance.getString(R.string.album)
                 else -> null
             }
         }

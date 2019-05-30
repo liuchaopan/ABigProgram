@@ -2,7 +2,7 @@ package tech.soit.quiet.player.core
 
 import android.media.MediaPlayer
 import android.net.Uri
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 import kotlin.properties.Delegates
 
 /**
@@ -53,7 +53,7 @@ class QuietMediaPlayer(
             _state = IMediaPlayer.IDLE
         }
         isPlayWhenReady = playWhenReady
-        player.setDataSource(AppContext, Uri.parse(uri))
+        player.setDataSource(AppContext.instance, Uri.parse(uri))
         player.setOnPreparedListener {
             //change _state when player prepared
             _state = IMediaPlayer.PAUSING

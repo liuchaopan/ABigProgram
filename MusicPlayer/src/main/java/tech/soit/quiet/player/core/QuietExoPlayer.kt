@@ -9,16 +9,16 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 import tech.soit.quiet.utils.component.network.randomUserAgent
 
 class QuietExoPlayer(
-        private val exoPlayer: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(AppContext)
+        private val exoPlayer: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(AppContext.instance)
 ) : IMediaPlayer {
 
     companion object {
 
-        private val cache = SimpleCache(AppContext.filesDir, LeastRecentlyUsedCacheEvictor(1000 * 1000 * 100))
+        private val cache = SimpleCache(AppContext.instance.filesDir, LeastRecentlyUsedCacheEvictor(1000 * 1000 * 100))
 
     }
 
@@ -34,7 +34,7 @@ class QuietExoPlayer(
     }
 
     override fun prepare(uri: String, playWhenReady: Boolean) {
-        val source = ExtractorMediaSource.Factory(CacheDataSourceFactory(cache, DefaultDataSourceFactory(AppContext, randomUserAgent())))
+        val source = ExtractorMediaSource.Factory(CacheDataSourceFactory(cache, DefaultDataSourceFactory(AppContext.instance, randomUserAgent())))
                 .createMediaSource(Uri.parse(uri))
         exoPlayer.prepare(source)
         exoPlayer.playWhenReady = playWhenReady

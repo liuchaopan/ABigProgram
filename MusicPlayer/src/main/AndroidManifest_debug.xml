@@ -15,14 +15,13 @@
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:supportsRtl="true" android:theme="@style/MusicPlayerAppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
 
         <activity
             android:name=".ui.activity.main.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/MusicPlayerSplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,19 +31,19 @@
 
         <activity
             android:name=".ui.activity.main.AppMainActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.local.LocalMusicActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.local.LocalMusicListActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.local.LocalScannerActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.MusicPlayerActivity"
@@ -54,19 +53,19 @@
 
         <activity
             android:name=".ui.activity.cloud.CloudPlayListDetailActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.cloud.CloudDailyRecommendActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.cloud.TopDetailActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.LatestPlayListActivity"
-            android:theme="@style/AppTheme.ColoredNavigationBar" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <service android:name=".ui.service.QuietPlayerService" />
 

@@ -6,12 +6,12 @@ import android.util.TypedValue
 import android.view.View
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 
 /**
  * @see Context.getString
  */
-fun string(@StringRes stringId: Int): String = AppContext.getString(stringId)
+fun string(@StringRes stringId: Int): String = AppContext.instance.getString(stringId)
 
 /**
  * @see Context.getString
@@ -21,13 +21,13 @@ fun string(@StringRes stringId: Int, vararg formatArgs: Any) = string(stringId).
 /**
  * @see Context.getColor
  */
-fun color(@ColorRes colorId: Int) = ContextCompat.getColor(AppContext, colorId)
+fun color(@ColorRes colorId: Int) = ContextCompat.getColor(AppContext.instance, colorId)
 
 
 /**
  * @see Context.getDrawable
  */
-fun drawable(@DrawableRes id: Int, @ColorInt tint: Int = 0) = AppContext.getDrawable(id)!!.also {
+fun drawable(@DrawableRes id: Int, @ColorInt tint: Int = 0) = AppContext.instance.getDrawable(id)!!.also {
     if (tint != 0) {
         it.setTint(tint)
     }
@@ -36,7 +36,7 @@ fun drawable(@DrawableRes id: Int, @ColorInt tint: Int = 0) = AppContext.getDraw
 /**
  * @see android.content.res.Resources.getDimension
  */
-fun dimen(@DimenRes id: Int) = AppContext.resources.getDimension(id)
+fun dimen(@DimenRes id: Int) = AppContext.instance.resources.getDimension(id)
 
 /**
  * get theme data by Attr id

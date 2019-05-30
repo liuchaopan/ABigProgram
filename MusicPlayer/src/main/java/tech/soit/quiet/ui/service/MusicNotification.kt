@@ -13,10 +13,10 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Target.MUTED
 import androidx.palette.graphics.Target.VIBRANT
+import com.pan.library.util.AppContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.player.MusicPlayerManager
@@ -50,7 +50,7 @@ class MusicNotification {
     }
 
 
-    private val context: Context get() = AppContext
+    private val context: Context get() = AppContext.instance
 
 
     private val notificationManger: NotificationManager by lazy {
@@ -76,7 +76,7 @@ class MusicNotification {
 
     private val colorDefault: Int
         @ColorInt get() {
-            val context: Context = AppTask.topStackActivity ?: AppContext
+            val context: Context = AppTask.topStackActivity ?: AppContext.instance
             return context.attrValue(R.attr.colorPrimary)
         }
 
@@ -169,7 +169,7 @@ class MusicNotification {
         if (picUrl == null) {
             isNotifyCompleted = true
         } else {
-            val futureTarget = ImageLoader.with(AppContext).asBitmap()
+            val futureTarget = ImageLoader.with(AppContext.instance).asBitmap()
                     .load(picUrl)
                     .submit(imageSize, imageSize)
             GlobalScope.launch {

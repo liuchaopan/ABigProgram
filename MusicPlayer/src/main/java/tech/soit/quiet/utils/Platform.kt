@@ -2,7 +2,7 @@ package tech.soit.quiet.utils
 
 import android.content.Context
 import android.os.storage.StorageManager
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 import java.lang.reflect.Array
 import java.lang.reflect.InvocationTargetException
 
@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException
  */
 fun getStoragePath(is_removable: Boolean): String? {
 
-    val mStorageManager = AppContext.getSystemService(Context.STORAGE_SERVICE) as StorageManager
+    val mStorageManager = AppContext.instance.getSystemService(Context.STORAGE_SERVICE) as StorageManager
     val storageVolumeClazz: Class<*>?
     try {
         storageVolumeClazz = Class.forName("android.os.storage.StorageVolume")

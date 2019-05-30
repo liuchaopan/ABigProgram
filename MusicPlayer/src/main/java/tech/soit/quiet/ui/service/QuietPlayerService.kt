@@ -7,7 +7,7 @@ import android.os.Binder
 import android.os.IBinder
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
-import tech.soit.quiet.AppContext
+import com.pan.library.util.AppContext
 import tech.soit.quiet.player.MusicPlayerManager
 import tech.soit.quiet.player.QuietMusicPlayer
 import tech.soit.quiet.player.core.IMediaPlayer
@@ -85,7 +85,7 @@ class QuietPlayerService : Service(), LifecycleOwner {
         /**
          * ensure [QuietPlayerService] is Running
          */
-        private fun ensureServiceRunning(context: Context = AppContext) {
+        private fun ensureServiceRunning(context: Context = AppContext.instance) {
             if (!isRunning) {
                 context.startService(Intent(context, QuietPlayerService::class.java))
             } else {

@@ -16,12 +16,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionManager
+import com.pan.library.util.AppContext
 import kotlinx.android.synthetic.main.base_activity_bottom_controller.*
 import kotlinx.android.synthetic.main.content_bottom_controller.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import tech.soit.quiet.AppContext
 import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
 import tech.soit.quiet.player.core.IMediaPlayer
@@ -62,7 +62,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var job: Job
 
     @ColorInt
-    var colorPrimary: Int = AppContext.attrValue(R.attr.colorPrimary)
+    var colorPrimary: Int = AppContext.instance.attrValue(R.attr.colorPrimary)
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job

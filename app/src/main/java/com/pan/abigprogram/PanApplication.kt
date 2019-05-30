@@ -5,6 +5,7 @@ import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
 import com.pan.abigprogram.di.*
 import com.pan.library.handler.CrashHandler
+import com.pan.library.util.AppContext
 import com.sina.weibo.sdk.WbSdk
 import com.sina.weibo.sdk.auth.AuthInfo
 import org.kodein.di.Kodein
@@ -35,6 +36,7 @@ class PanApplication : Application() , KodeinAware {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+        AppContext.instance = this
         CrashHandler.instance.init()
         WbSdk.install(this, AuthInfo(this, APP_KEY, REDIRECT_URL, SCOPE))
         if (BuildConfig.DEBUG) {

@@ -19,6 +19,7 @@ class AppContext : Application() {
         AppContext.attachBaseContext(this)
         AppContext.setTheme(R.style.AppTheme)
         CrashHandler.instance.init()
+        com.pan.library.util.AppContext.instance = this
         registerActivityLifecycleCallbacks(AppTask.CallBack)
     }
 }
