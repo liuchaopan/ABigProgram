@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/buttonPlayMode"
-        style="@style/ActionOverflow.Dark"
+        style="@style/MusicPlayerActionOverflow.Dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -23,7 +23,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/buttonPlayPrevious"
-        style="@style/ActionOverflow.Dark"
+        style="@style/MusicPlayerActionOverflow.Dark"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -37,7 +37,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/buttonPlayPause"
-        style="@style/ActionOverflow.Dark"
+        style="@style/MusicPlayerActionOverflow.Dark"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
@@ -52,7 +52,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/buttonPlayNext"
-        style="@style/ActionOverflow.Dark"
+        style="@style/MusicPlayerActionOverflow.Dark"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -66,7 +66,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/buttonPlayerPlaylist"
-        style="@style/ActionOverflow.Dark"
+        style="@style/MusicPlayerActionOverflow.Dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

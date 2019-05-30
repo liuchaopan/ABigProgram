@@ -38,7 +38,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iconUp"
-                style="@style/ActionOverflow.Dark"
+                style="@style/MusicPlayerActionOverflow.Dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iconOptions"
-                style="@style/ActionOverflow.Dark"
+                style="@style/MusicPlayerActionOverflow.Dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"

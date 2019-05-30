@@ -1,12 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
-    <style name="SplashTheme" parent="AppTheme">
+    <style name="MusicPlayerSplashTheme" parent="MusicPlayerAppTheme">
         <item name="android:windowBackground">@color/color_primary</item>
     </style>
 
     <!-- application base theme -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="MusicPlayerAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
@@ -45,37 +45,39 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
-        <item name="toolbarNavigationButtonStyle">@style/Toolbar.Button.Navigation.Tinted</item>
+        <item name="toolbarNavigationButtonStyle">
+            @style/MusicPlayerToolbar.Button.Navigation.Tinted
+        </item>
 
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+    <style name="MusicPlayerAppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
     </style>
 
-    <style name="AppTheme.ColoredNavigationBar">
+    <style name="MusicPlayerAppTheme.ColoredNavigationBar">
         <item name="android:navigationBarColor">?colorPrimary</item>
         <item name="android:windowTranslucentNavigation">false</item>
     </style>
 
-    <style name="Toolbar.Button.Navigation.Tinted" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+    <style name="MusicPlayerToolbar.Button.Navigation.Tinted" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">@color/color_text_inverse_primary</item>
     </style>
 
 
     <!-- action button -->
-    <style name="ActionOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
+    <style name="MusicPlayerActionOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tooltipText" tools:ignore="NewApi" />
         <item name="android:tint">?quietTextPrimary</item>
     </style>
 
     <!-- Action With Overflow , it's design for black background -->
-    <style name="ActionOverflow.Dark">
-        <item name="android:theme">@style/RippleThemeDark</item>
+    <style name="MusicPlayerActionOverflow.Dark">
+        <item name="android:theme">@style/MusicPlayerRippleThemeDark</item>
         <item name="android:tint">?quietTextPrimaryInverse</item>
     </style>
 
-    <style name="RippleThemeDark">
+    <style name="MusicPlayerRippleThemeDark">
         <item name="colorControlHighlight">@color/background_secondary</item>
     </style>
 
