@@ -1,6 +1,7 @@
 package tech.soit.quiet
 
 import android.app.Application
+import com.pan.library.handler.CrashHandler
 import tech.soit.quiet.utils.component.AppTask
 
 /**
@@ -17,6 +18,7 @@ class AppContext : Application() {
         super.onCreate()
         AppContext.attachBaseContext(this)
         AppContext.setTheme(R.style.AppTheme)
+        CrashHandler.instance.init()
         registerActivityLifecycleCallbacks(AppTask.CallBack)
     }
 }
