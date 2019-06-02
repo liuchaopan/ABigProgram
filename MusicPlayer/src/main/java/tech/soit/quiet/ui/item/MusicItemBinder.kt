@@ -3,11 +3,9 @@ package tech.soit.quiet.ui.item
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.core.view.children
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
-import com.pan.library.util.AppContext
 import kotlinx.android.synthetic.main.item_music.view.*
 import tech.soit.quiet.R
 import tech.soit.quiet.model.vo.Music
@@ -15,7 +13,6 @@ import tech.soit.quiet.player.MusicPlayerManager
 import tech.soit.quiet.utils.KItemViewBinder
 import tech.soit.quiet.utils.KViewHolder
 import tech.soit.quiet.utils.component.ImageLoader
-import tech.soit.quiet.utils.component.support.attrValue
 
 
 /**
@@ -32,12 +29,7 @@ open class MusicItemViewBinder(
         private val onPlayingItemShowHide: ((show: Boolean) -> Unit)? = null
 ) : KItemViewBinder<Music>() {
 
-    @ColorInt
-    var colorIndicator: Int = AppContext.instance.attrValue(R.attr.colorPrimary)
 
-    fun applyPrimaryColor(@ColorInt color: Int) {
-        colorIndicator = color
-    }
 
     override fun getLayoutRes(): Int {
         return R.layout.item_music
@@ -49,9 +41,6 @@ open class MusicItemViewBinder(
 
     override fun onBindViewHolder(holder: KViewHolder, item: Music) {
         holder as MusicViewHolder
-        if (colorIndicator != 0) {
-            holder.setPrimaryColor(colorIndicator)
-        }
 
         val isPlaying = isPlaying(item)
         holder.setIsPlaying(isPlaying)
@@ -104,14 +93,6 @@ open class MusicItemViewBinder(
             itemView.indicatorPlaying.isGone = !isPlaying
         }
 
-
-        /**
-         * reset item view primary color
-         */
-        fun setPrimaryColor(@ColorInt color: Int) {
-            itemView.indicatorPlaying.setBackgroundColor(color)
-            itemView.divider_subtitle.setBackgroundColor(color)
-        }
 
     }
 

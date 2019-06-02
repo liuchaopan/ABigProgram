@@ -1,7 +1,5 @@
 package tech.soit.quiet.ui.adapter
 
-import androidx.annotation.ColorInt
-import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import me.drakeet.multitype.MultiTypeAdapter
@@ -90,22 +88,6 @@ open class MusicListAdapter(private val token: String) : MultiTypeAdapter() {
         items.add(ItemMusicListHeader(musics.size, isShowSubscribeButton, isSubscribed))
         items.addAll(musics)
         return items
-    }
-
-    /**
-     * change music list primary color
-     */
-    fun applyPrimaryColor(@ColorInt colorPrimary: Int) {
-        musicItemViewBinder.applyPrimaryColor(colorPrimary)
-        val recyclerView = this.recyclerView ?: return
-        recyclerView.children
-                .mapNotNull {
-                    recyclerView.getChildViewHolder(it)
-                }
-                .filterIsInstance(MusicItemViewBinder.MusicViewHolder::class.java)
-                .forEach {
-                    it.setPrimaryColor(colorPrimary)
-                }
     }
 
 }

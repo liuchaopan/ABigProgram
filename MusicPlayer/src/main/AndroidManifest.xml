@@ -17,7 +17,7 @@
 
         <activity
             android:name=".ui.activity.main.AppMainActivity"
-            android:theme="@style/MusicPlayerAppTheme.AppBarOverlay" />
+            android:theme="@style/MusicPlayerAppTheme.ColoredNavigationBar" />
 
         <activity
             android:name=".ui.activity.local.LocalMusicActivity"

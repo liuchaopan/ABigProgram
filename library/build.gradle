@@ -79,7 +79,8 @@ dependencies {
     api 'androidx.room:room-testing:2.0.0'
     api 'androidx.arch.core:core-testing:2.0.1'
 
-
+    api 'android.arch.persistence.room:runtime:1.1.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
     api 'androidx.room:room-runtime:2.0.0'
     kapt 'androidx.room:room-compiler:2.0.0'
     api 'androidx.paging:paging-runtime:2.1.0'

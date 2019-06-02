@@ -76,7 +76,7 @@ class PlayingPlaylistDialog : BottomSheetDialogFragment(), CoroutineScope, Lifec
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        applyPrimaryColor((requireActivity() as BaseActivity).colorPrimary)
+        applyPrimaryColor(R.color.colorPrimary)
         super.onViewCreated(view, savedInstanceState)
         recyclerView.adapter = adapter
         containerPlayMode.setOnClickListener {

@@ -20,7 +20,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        resourcePrefix project.getName()
+        //resourcePrefix project.getName()
 
         if (isIndependentApk.toBoolean()) {
             applicationId "com.pan.abigprogram." + project.getName()

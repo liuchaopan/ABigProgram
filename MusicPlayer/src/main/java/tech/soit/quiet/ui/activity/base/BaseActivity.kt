@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -16,7 +15,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionManager
-import com.pan.library.util.AppContext
 import kotlinx.android.synthetic.main.base_activity_bottom_controller.*
 import kotlinx.android.synthetic.main.content_bottom_controller.*
 import kotlinx.coroutines.CoroutineScope
@@ -61,8 +59,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var job: Job
 
-    @ColorInt
-    var colorPrimary: Int = AppContext.instance.attrValue(R.attr.colorPrimary)
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -226,11 +222,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
         val point = Point()
         windowManager.defaultDisplay.getSize(point)
         return point.x to point.y
-    }
-
-
-    protected fun setPrimaryColor(@ColorInt color: Int) {
-        this.colorPrimary = color
     }
 
 
